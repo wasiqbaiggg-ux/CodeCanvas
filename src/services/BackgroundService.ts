@@ -36,8 +36,7 @@ export class BackgroundService {
         100
       );
       this.statusBarItem.command = 'codecanvas.openSettings';
-      this.statusBarItem.tooltip = 'Click to open CodeCanvas settings';
-      this.updateStatusBar();
+      this.statusBarItem.tooltip = 'Click to open CodeCanvas settings';\n      this.updateStatusBar();
       this.statusBarItem.show();
     }
   }
@@ -61,9 +60,15 @@ export class BackgroundService {
         return;
       }
 
+      // Load and validate image using imageService
+      const imageData = await this.imageService.loadImage(config.imagePath);
+      if (!imageData) {
+        throw new Error('Failed to load image');
+      }
+
       // Background rendering would be implemented here
       // This is a placeholder for the actual rendering logic
-      logger.info('Background applied', config);
+      logger.info('Background applied', { path: config.imagePath });
       this.updateStatusBar();
     } catch (error) {
       logger.error('Failed to apply background', error);
@@ -90,5 +95,6 @@ export class BackgroundService {
     if (this.statusBarItem) {
       this.statusBarItem.dispose();
     }
+    this.imageService.clearCache();
   }
 }
