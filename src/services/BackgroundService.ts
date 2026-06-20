@@ -36,7 +36,8 @@ export class BackgroundService {
         100
       );
       this.statusBarItem.command = 'codecanvas.openSettings';
-      this.statusBarItem.tooltip = 'Click to open CodeCanvas settings';\n      this.updateStatusBar();
+      this.statusBarItem.tooltip = 'Click to open CodeCanvas settings';
+      this.updateStatusBar();
       this.statusBarItem.show();
     }
   }
