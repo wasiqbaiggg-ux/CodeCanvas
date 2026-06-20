@@ -1,0 +1,229 @@
+{
+  "name": "codecanvas",
+  "displayName": "CodeCanvas",
+  "description": "Set any image as your VS Code editor background with customizable transparency, blur, positioning, and theme-aware effects",
+  "version": "0.1.0",
+  "publisher": "wasiqbaiggg-ux",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Themes",
+    "Visualization"
+  ],
+  "keywords": [
+    "background",
+    "wallpaper",
+    "editor",
+    "theme",
+    "customization",
+    "image",
+    "opacity",
+    "blur"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wasiqbaiggg-ux/CodeCanvas.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wasiqbaiggg-ux/CodeCanvas/issues"
+  },
+  "homepage": "https://github.com/wasiqbaiggg-ux/CodeCanvas#readme",
+  "icon": "images/icon.png",
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "codecanvas.setBackground",
+        "title": "CodeCanvas: Set Background Image"
+      },
+      {
+        "command": "codecanvas.removeBackground",
+        "title": "CodeCanvas: Remove Background"
+      },
+      {
+        "command": "codecanvas.toggleBackground",
+        "title": "CodeCanvas: Toggle Background"
+      },
+      {
+        "command": "codecanvas.openSettings",
+        "title": "CodeCanvas: Open Settings"
+      },
+      {
+        "command": "codecanvas.increaseOpacity",
+        "title": "CodeCanvas: Increase Opacity"
+      },
+      {
+        "command": "codecanvas.decreaseOpacity",
+        "title": "CodeCanvas: Decrease Opacity"
+      },
+      {
+        "command": "codecanvas.increaseBlur",
+        "title": "CodeCanvas: Blur +"
+      },
+      {
+        "command": "codecanvas.decreaseBlur",
+        "title": "CodeCanvas: Blur -"
+      },
+      {
+        "command": "codecanvas.resetSettings",
+        "title": "CodeCanvas: Reset Settings"
+      },
+      {
+        "command": "codecanvas.nextWallpaper",
+        "title": "CodeCanvas: Next Wallpaper"
+      },
+      {
+        "command": "codecanvas.previousWallpaper",
+        "title": "CodeCanvas: Previous Wallpaper"
+      },
+      {
+        "command": "codecanvas.openWallpaperFolder",
+        "title": "CodeCanvas: Open Wallpaper Folder"
+      }
+    ],
+    "configuration": {
+      "title": "CodeCanvas",
+      "properties": {
+        "codecanvas.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable CodeCanvas background"
+        },
+        "codecanvas.imagePath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the background image (local path or URL)"
+        },
+        "codecanvas.opacity": {
+          "type": "number",
+          "default": 0.12,
+          "minimum": 0,
+          "maximum": 1,
+          "step": 0.01,
+          "description": "Background opacity (0-1)"
+        },
+        "codecanvas.blur": {
+          "type": "number",
+          "default": 8,
+          "minimum": 0,
+          "maximum": 30,
+          "step": 1,
+          "description": "Blur effect in pixels (0-30px)"
+        },
+        "codecanvas.brightness": {
+          "type": "number",
+          "default": 100,
+          "minimum": 0,
+          "maximum": 200,
+          "step": 5,
+          "description": "Brightness percentage (0-200%)"
+        },
+        "codecanvas.contrast": {
+          "type": "number",
+          "default": 100,
+          "minimum": 0,
+          "maximum": 200,
+          "step": 5,
+          "description": "Contrast percentage (0-200%)"
+        },
+        "codecanvas.saturation": {
+          "type": "number",
+          "default": 100,
+          "minimum": 0,
+          "maximum": 200,
+          "step": 5,
+          "description": "Saturation percentage (0-200%)"
+        },
+        "codecanvas.position": {
+          "type": "string",
+          "enum": [
+            "center",
+            "top",
+            "bottom",
+            "left",
+            "right",
+            "topLeft",
+            "topRight",
+            "bottomLeft",
+            "bottomRight"
+          ],
+          "default": "center",
+          "description": "Image position in editor"
+        },
+        "codecanvas.size": {
+          "type": "string",
+          "enum": [
+            "cover",
+            "contain",
+            "original",
+            "stretch",
+            "tile"
+          ],
+          "default": "cover",
+          "description": "How the image fits in the editor"
+        },
+        "codecanvas.repeat": {
+          "type": "string",
+          "enum": [
+            "no-repeat",
+            "repeat",
+            "repeat-x",
+            "repeat-y"
+          ],
+          "default": "no-repeat",
+          "description": "Image repeat mode"
+        },
+        "codecanvas.workspaceSpecific": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use workspace-specific settings instead of global"
+        },
+        "codecanvas.themeAware": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically adjust opacity for different themes"
+        },
+        "codecanvas.darkThemeOpacity": {
+          "type": "number",
+          "default": 0.12,
+          "minimum": 0,
+          "maximum": 1,
+          "step": 0.01,
+          "description": "Opacity for dark themes"
+        },
+        "codecanvas.lightThemeOpacity": {
+          "type": "number",
+          "default": 0.08,
+          "minimum": 0,
+          "maximum": 1,
+          "step": 0.01,
+          "description": "Opacity for light themes"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "build": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node --target=es2020",
+    "build:watch": "npm run build -- --watch",
+    "lint": "eslint src --ext ts",
+    "test": "node ./dist/test/runTest.js",
+    "pretest": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.2",
+    "esbuild": "^0.19.10"
+  },
+  "dependencies": {}
+}
